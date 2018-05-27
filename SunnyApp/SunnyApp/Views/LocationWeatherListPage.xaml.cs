@@ -14,16 +14,16 @@ using SunnyApp.ViewModels;
 namespace SunnyApp.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LocationListPage : ContentPage
+	public partial class LocationWeatherListPage : ContentPage
 	{
-	    LocationListViewModel viewModel;
+	    LocationWeatherListViewModel viewModel;
 
-        public LocationListPage()
+        public LocationWeatherListPage()
         {
             InitializeComponent();
 
             //BindingContext = viewModel = new LocationListViewModel();
-            BindingContext = viewModel = App.Container.Resolve<LocationListViewModel>();
+            BindingContext = viewModel = App.Container.Resolve<LocationWeatherListViewModel>();
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)

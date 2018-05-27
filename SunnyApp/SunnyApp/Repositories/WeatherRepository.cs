@@ -10,7 +10,6 @@ namespace SunnyApp.Repositories
     {
         public Task<IList<Weather>> GetWeatherByLocationAsync(string locationKey)
         {
-            // TODO: move to constant
             return RequestBuilder.BuildGetRequest("http://dataservice.accuweather.com")
                 .SetPathPart($"forecasts/v1/hourly/1hour/{locationKey}")
                 .AddQueryStringParameter("apikey", "wJxBCJ6VUaN4TFVRTKzmn3RGuWx0FbWb")

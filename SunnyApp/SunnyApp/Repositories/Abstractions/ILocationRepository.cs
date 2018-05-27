@@ -8,6 +8,6 @@ namespace SunnyApp.Repositories.Abstractions
 {
     interface ILocationRepository
     { 
-        Task<List<Weather>> GetLocationListByTextAsync(string searchText);
+        Task<IList<Location>> GetLocationListByTextAsync(string searchText);
     }
 }

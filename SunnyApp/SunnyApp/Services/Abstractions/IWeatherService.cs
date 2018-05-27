@@ -6,6 +6,6 @@ namespace SunnyApp.Services.Abstractions
 {
     public interface IWeatherService
     {
-        Task<IList<Weather>> GetWeatherByLocationAsync(string locationKey);
+        Task<IList<Weather>> GetCurrentWeatherByLocationAsync(string locationKey);
     }
 }

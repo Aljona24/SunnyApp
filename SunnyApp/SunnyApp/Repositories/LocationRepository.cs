@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SunnyApp.ApiRequestHelper;
 using SunnyApp.Models;
 using SunnyApp.Repositories.Abstractions;
 
@@ -10,59 +11,45 @@ namespace SunnyApp.Repositories
 {
     public class LocationRepository : IDataStore<Location>, ILocationRepository
     {
-        List<Location> items;
+        private const string KeyPrefix = "location_key_";
+
+        List <Location> LocationList;
 
         public LocationRepository()
         {
-            items = new List<Location>();
-            var mockItems = new List<Location>
-            {
-                new Location { Key = "324505", LocalizedName = "Kyiv", }
-            };
-
-            foreach (var item in mockItems)
-            {
-                items.Add(item);
-            }
+            LocationList = new List<Location>();
+            LocationList = App.Current.Properties.Where(x => x.Key.Contains($"{KeyPrefix}")).Select(x => (Location)x.Value).ToList();
         }
 
-        public async Task<bool> AddItemAsync(Location item)
+        public async Task<bool> AddItemAsync(Location location)
         {
-            items.Add(item);
-
+            App.Current.Properties.Add($"{KeyPrefix}{location.Key}", location);
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> UpdateItemAsync(Location item)
+        public async Task<bool> DeleteItemAsync(string key)
         {
-            var _item = items.FirstOrDefault(arg => arg.Key == item.Key);
-            items.Remove(_item);
-            items.Add(item);
-
+            App.Current.Properties.Remove($"{KeyPrefix}{key}");
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteItemAsync(string Key)
+        public async Task<Location> GetItemAsync(string key)
         {
-            var _item = items.FirstOrDefault(arg => arg.Key == Key);
-            items.Remove(_item);
-
-            return await Task.FromResult(true);
-        }
-
-        public async Task<Location> GetItemAsync(string Key)
-        {
-            return await Task.FromResult(items.FirstOrDefault(s => s.Key == Key));
+            return await Task.FromResult(LocationList.FirstOrDefault(s => s.Key == key));
         }
 
         public async Task<IEnumerable<Location>> GetItemsAsync(bool forceRefresh = false)
         {
-            return await Task.FromResult(items);
+            return await Task.FromResult(LocationList);
         }
 
-        public Task<List<Weather>> GetLocationListByTextAsync(string searchText)
+        public Task<IList<Location>> GetLocationListByTextAsync(string searchText)
         {
-            throw new NotImplementedException();
+            return RequestBuilder.BuildGetRequest("http://dataservice.accuweather.com")
+                .SetPathPart($"locations/v1/search")
+                .AddQueryStringParameter("apikey", "wJxBCJ6VUaN4TFVRTKzmn3RGuWx0FbWb")
+                .AddQueryStringParameter("q", $"{searchText}")
+                .GetAsync<IList<Location>>();
         }
     }
 }

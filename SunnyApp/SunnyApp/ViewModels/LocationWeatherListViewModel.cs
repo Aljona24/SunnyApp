@@ -10,14 +10,14 @@ using SunnyApp.Views;
 
 namespace SunnyApp.ViewModels
 {
-    public class LocationListViewModel : BaseViewModel
+    public class LocationWeatherListViewModel : BaseViewModel
     {
         private readonly IWeatherService _weatherService;
 
         public ObservableCollection<LocationWeather> LocationWeatherList { get; set; }
         public Command LoadItemsCommand { get; set; }
 
-        public LocationListViewModel(IWeatherService weatherService)
+        public LocationWeatherListViewModel(IWeatherService weatherService)
         {
             _weatherService = weatherService;
             Title = "Browse";
@@ -26,7 +26,7 @@ namespace SunnyApp.ViewModels
 
             MessagingCenter.Subscribe<NewLocationPage, Location>(this, "AddItem", async (obj, location) =>
             {
-                var weatherList = await _weatherService.GetWeatherByLocationAsync(location.Key);
+                var weatherList = await _weatherService.GetCurrentWeatherByLocationAsync(location.Key);
                 var locationWeather = new LocationWeather
                 {
                     Location = location,
@@ -51,7 +51,7 @@ namespace SunnyApp.ViewModels
                 var locationList = await DataStore.GetItemsAsync(true);
                 foreach (var location in locationList)
                 {
-                    var weatherList = await _weatherService.GetWeatherByLocationAsync(location.Key);
+                    var weatherList = await _weatherService.GetCurrentWeatherByLocationAsync(location.Key);
                     var locationWeather = new LocationWeather
                     {
                         Location = location,
