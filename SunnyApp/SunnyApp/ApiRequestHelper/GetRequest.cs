@@ -1,4 +1,4 @@
-﻿using SunnyApp.URIHelper.Exceptions;
+﻿using SunnyApp.ApiRequestHelper.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -7,26 +7,26 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace SunnyApp.URIHelper
+namespace SunnyApp.ApiRequestHelper
 {
-    public class GetURI
+    public class GetRequest
     {
         private string _endpoint;
 
-        public GetURI(string baseUrl)
+        public GetRequest(string baseUrl)
         {
             BaseUrl = baseUrl;
         }
 
         protected string BaseUrl { get; }
 
-        public GetURI SetPathPart(string path)
+        public GetRequest SetPathPart(string path)
         {
             _endpoint = $"/{path}/";
             return this;
         }
 
-        public GetURI AddQueryStringParameter(string paramName, string paramValue)
+        public GetRequest AddQueryStringParameter(string paramName, string paramValue)
         {
             AddQueryStringParameterInternal(paramName, paramValue);
             return this;

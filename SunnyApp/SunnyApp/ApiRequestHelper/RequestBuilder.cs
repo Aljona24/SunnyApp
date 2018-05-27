@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SunnyApp.URIHelper
+namespace SunnyApp.ApiRequestHelper
 {
     public static class RequestBuilder
     {
-        public static GetURI BuildGetRequest(string baseUri)
+        public static GetRequest BuildGetRequest(string baseUri)
         {
-            return new GetURI(baseUri);
+            return new GetRequest(baseUri);
         }
     }
 }

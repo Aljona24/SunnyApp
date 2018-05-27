@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using SunnyApp.Models;
-using SunnyApp.URIHelper;
+using SunnyApp.ApiRequestHelper;
+using SunnyApp.Repositories.Abstractions;
 
-namespace SunnyApp.Repositories.Abstractions
+namespace SunnyApp.Repositories
 {
     public class WeatherRepository : IWeatherRepository
     {

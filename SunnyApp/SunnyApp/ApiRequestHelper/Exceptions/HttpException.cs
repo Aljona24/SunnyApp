@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SunnyApp.URIHelper.Exceptions
+namespace SunnyApp.ApiRequestHelper.Exceptions
 {
     class HttpException : System.Exception
     {

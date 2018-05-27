@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
 using Xamarin.Forms;
-
 using SunnyApp.Models;
-using SunnyApp.Services;
+using SunnyApp.Repositories;
+using SunnyApp.Repositories.Abstractions;
 
 namespace SunnyApp.ViewModels
 {

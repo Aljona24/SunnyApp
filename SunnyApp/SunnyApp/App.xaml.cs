@@ -1,4 +1,6 @@
 ﻿using System;
+using Autofac;
+using SunnyApp.Infrastructure;
 using Xamarin.Forms;
 using SunnyApp.Views;
 using Xamarin.Forms.Xaml;
@@ -8,7 +10,15 @@ namespace SunnyApp
 {
 	public partial class App : Application
 	{
-		
+        public static IContainer Container { get; }
+
+	    static App()
+	    {
+	        var builder = new ContainerBuilder();
+            AutofacRegistrator.Register(builder);
+	        Container = builder.Build();
+	    }
+
 		public App ()
 		{
 			InitializeComponent();

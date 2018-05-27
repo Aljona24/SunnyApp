@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SunnyApp.Models;
 using SunnyApp.Repositories.Abstractions;
+using SunnyApp.Services.Abstractions;
 
 namespace SunnyApp.Services
 {

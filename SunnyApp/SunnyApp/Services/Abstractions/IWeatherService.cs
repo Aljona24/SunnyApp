@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using SunnyApp.Models;
 
-namespace SunnyApp.Services
+namespace SunnyApp.Services.Abstractions
 {
     public interface IWeatherService
     {

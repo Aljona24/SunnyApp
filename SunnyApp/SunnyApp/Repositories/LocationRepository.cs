@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using SunnyApp.Models;
 using SunnyApp.Repositories.Abstractions;
 
-[assembly: Xamarin.Forms.Dependency(typeof(SunnyApp.Services.LocationRepository))]
-namespace SunnyApp.Services
+[assembly: Xamarin.Forms.Dependency(typeof(SunnyApp.Repositories.LocationRepository))]
+namespace SunnyApp.Repositories
 {
     public class LocationRepository : IDataStore<Location>, ILocationRepository
     {
@@ -18,12 +17,7 @@ namespace SunnyApp.Services
             items = new List<Location>();
             var mockItems = new List<Location>
             {
-                new Location { Key = Guid.NewGuid().ToString(), LocalizedName = "First item", },
-                new Location { Key = Guid.NewGuid().ToString(), LocalizedName = "Second item", },
-                new Location { Key = Guid.NewGuid().ToString(), LocalizedName = "Third item", },
-                new Location { Key = Guid.NewGuid().ToString(), LocalizedName = "Fourth item", },
-                new Location { Key = Guid.NewGuid().ToString(), LocalizedName = "Fifth item", },
-                new Location { Key = Guid.NewGuid().ToString(), LocalizedName = "Sixth item", },
+                new Location { Key = "324505", LocalizedName = "Kyiv", }
             };
 
             foreach (var item in mockItems)

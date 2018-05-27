@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Autofac;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,7 +22,8 @@ namespace SunnyApp.Views
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new LocationListViewModel();
+            //BindingContext = viewModel = new LocationListViewModel();
+            BindingContext = viewModel = App.Container.Resolve<LocationListViewModel>();
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -46,7 +47,7 @@ namespace SunnyApp.Views
         {
             base.OnAppearing();
 
-            if (viewModel.Locations.Count == 0)
+            if (viewModel.LocationWeatherList.Count == 0)
                 viewModel.LoadItemsCommand.Execute(null);
         }
     }

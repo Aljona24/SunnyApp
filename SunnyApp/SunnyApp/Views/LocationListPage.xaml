@@ -16,7 +16,7 @@
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="ItemsListView" 
-                ItemsSource="{Binding Locations}"
+                ItemsSource="{Binding LocationWeatherList}"
                 VerticalOptions="FillAndExpand"
                  HasUnevenRows="true"
                  RefreshCommand="{Binding LoadItemsCommand}"
@@ -28,13 +28,17 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10">
-                                <Label Text="{Binding LocalizedName}" 
+                                <Label Text="{Binding Location.LocalizedName}" 
                        LineBreakMode="NoWrap" 
                        Style="{DynamicResource ListItemTextStyle}" 
                        FontSize="16" />
-                                <Label Text="{Binding Key}" 
+                                <Label Text="{Binding CurrentWeather.DateTime}" 
                        LineBreakMode="NoWrap"
                        Style="{DynamicResource ListItemDetailTextStyle}"
+                       FontSize="13" />
+                                <Label Text="{Binding CurrentWeather.Temperature}" 
+                       LineBreakMode="NoWrap" 
+                       Style="{DynamicResource ListItemTextStyle}" 
                        FontSize="13" />
                             </StackLayout>
                         </ViewCell>

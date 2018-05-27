@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SunnyApp.Services
+namespace SunnyApp.Repositories.Abstractions
 {
     public interface IDataStore<T>
     {
