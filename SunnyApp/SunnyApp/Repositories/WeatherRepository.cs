@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using SunnyApp.Models;
 using SunnyApp.ApiRequestHelper;
@@ -10,14 +8,15 @@ namespace SunnyApp.Repositories
 {
     public class WeatherRepository : IWeatherRepository
     {
-        public Task<Weather> GetWeatherByLocationAsync(string locationKey)
+        public Task<IList<Weather>> GetWeatherByLocationAsync(string locationKey)
         {
-            return RequestBuilder.BuildGetRequest("http://dataservice.accuweather.com/forecasts/v1/hourly/1hour/")
-                .SetPathPart($"{locationKey}")
+            // TODO: move to constant
+            return RequestBuilder.BuildGetRequest("http://dataservice.accuweather.com")
+                .SetPathPart($"forecasts/v1/hourly/1hour/{locationKey}")
                 .AddQueryStringParameter("apikey", "wJxBCJ6VUaN4TFVRTKzmn3RGuWx0FbWb")
                 .AddQueryStringParameter("details", "true")
                 .AddQueryStringParameter("metric", "true")
-                .GetAsync<Weather>();
+                .GetAsync<IList<Weather>>();
         }
     }
 }

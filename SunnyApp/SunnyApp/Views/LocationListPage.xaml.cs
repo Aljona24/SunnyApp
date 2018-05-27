@@ -28,11 +28,11 @@ namespace SunnyApp.Views
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Location;
+            var item = args.SelectedItem as LocationWeather;
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new LocationDetailPage(new LocationDetailViewModel(item)));
+            await Navigation.PushAsync(new LocationDetailPage(new LocationDetailViewModel(item.Location)));
 
             // Manually deselect item.
             ItemsListView.SelectedItem = null;

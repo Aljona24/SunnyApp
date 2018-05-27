@@ -22,7 +22,7 @@ namespace SunnyApp.ApiRequestHelper
 
         public GetRequest SetPathPart(string path)
         {
-            _endpoint = $"/{path}/";
+            _endpoint = $"/{path}";
             return this;
         }
 

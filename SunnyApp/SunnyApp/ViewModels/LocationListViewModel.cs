@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using SunnyApp.Models;
@@ -25,14 +26,15 @@ namespace SunnyApp.ViewModels
 
             MessagingCenter.Subscribe<NewLocationPage, Location>(this, "AddItem", async (obj, location) =>
             {
-                var _location = location as Location;
-                var _locationWeather = new LocationWeather
+                var weatherList = await _weatherService.GetWeatherByLocationAsync(location.Key);
+                var locationWeather = new LocationWeather
                 {
-                    Location = _location,
-                    CurrentWeather = await _weatherService.GetWeatherByLocationAsync(_location.Key)
-            };
-                LocationWeatherList.Add(_locationWeather);
-                await DataStore.AddItemAsync(_location);
+                    Location = location,
+                    CurrentWeather = weatherList.FirstOrDefault()
+                };
+
+                LocationWeatherList.Add(locationWeather);
+                await DataStore.AddItemAsync(location);
             });
         }
 
@@ -49,13 +51,14 @@ namespace SunnyApp.ViewModels
                 var locationList = await DataStore.GetItemsAsync(true);
                 foreach (var location in locationList)
                 {
-                    var _locationWeather = new LocationWeather
+                    var weatherList = await _weatherService.GetWeatherByLocationAsync(location.Key);
+                    var locationWeather = new LocationWeather
                     {
                         Location = location,
-                        CurrentWeather = await _weatherService.GetWeatherByLocationAsync(location.Key)
+                        CurrentWeather = weatherList.FirstOrDefault()
                     };
 
-                    LocationWeatherList.Add(_locationWeather);
+                    LocationWeatherList.Add(locationWeather);
                 }
             }
             catch (Exception ex)

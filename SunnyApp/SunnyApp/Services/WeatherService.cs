@@ -17,7 +17,7 @@ namespace SunnyApp.Services
             _weatherRepository = weatherRepository;
         }
 
-        public async Task<Weather> GetWeatherByLocationAsync(string locationKey)
+        public async Task<IList<Weather>> GetWeatherByLocationAsync(string locationKey)
         {
             return await _weatherRepository.GetWeatherByLocationAsync(locationKey);
         }
