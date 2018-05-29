@@ -27,7 +27,7 @@ namespace SunnyApp.ViewModels
             LocationWeatherList = new ObservableCollection<LocationWeather>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadLocationListFromDataStoreCommandAsync());
 
-            MessagingCenter.Subscribe<NewLocationPage, Location>(this, "AddItem", async (obj, location) =>
+            MessagingCenter.Subscribe<SearchLocationListPage, Location>(this, "AddItem", async (obj, location) =>
             {
                 var weatherList = await _weatherService.GetCurrentWeatherByLocationAsync(location.Key);
                 var locationWeather = new LocationWeather

@@ -10,7 +10,7 @@ using SunnyApp.Views;
 
 namespace SunnyApp.ViewModels
 {
-    public class LocationListViewModel : BaseViewModel
+    public class SearchLocationListViewModel : BaseViewModel
     {
         private readonly ILocationSearchService _locationSearchServiceService;
         private string _searchedText;
@@ -23,7 +23,7 @@ namespace SunnyApp.ViewModels
             set { _searchedText = value; OnPropertyChanged(); }
         }
 
-        public LocationListViewModel(ILocationSearchService locationSearchService)
+        public SearchLocationListViewModel(ILocationSearchService locationSearchService)
         {
             _locationSearchServiceService = locationSearchService;
             Title = "Browse";

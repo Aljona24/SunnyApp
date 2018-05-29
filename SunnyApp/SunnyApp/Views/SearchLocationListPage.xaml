@@ -1,11 +1,7 @@
 ﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="SunnyApp.Views.NewLocationPage"
+             x:Class="SunnyApp.Views.SearchLocationListPage"
 		     Title="New Item">
-    <!--<ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
-    </ContentPage.ToolbarItems>-->
-
     <StackLayout Spacing="20" Padding="15">
         <SearchBar x:Name="LocationSearchByText" 
                        SearchCommand="{Binding LoadItemsCommand}" 
@@ -23,18 +19,26 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Padding="10">
+                        <StackLayout Orientation="Horizontal" Padding="10">
                             <Label Text="{Binding LocalizedName}"
-                                           LineBreakMode="NoWrap"
-                                           Style="{DynamicResource ListItemTextStyle}"
-                                           FontSize="16" />
-                            <Label Text="{Binding Country.LocalizedName}"
                                    LineBreakMode="NoWrap"
                                    Style="{DynamicResource ListItemTextStyle}"
                                    FontSize="16" />
                             <Label Text="{Binding Type}"
                                    LineBreakMode="NoWrap"
-                                   Style="{DynamicResource ListItemTextStyle}"
+                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                   FontSize="16" />
+                            <Label Text="{Binding Country.LocalizedName}"
+                                   LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                   FontSize="16" />                            
+                            <Label Text="{Binding AdministrativeArea.LocalizedName}"
+                                   LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                   FontSize="16" />
+                            <Label Text="{Binding AdministrativeArea.LocalizedType}"
+                                   LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListItemDetailTextStyle}"
                                    FontSize="16" />
                         </StackLayout>
                     </ViewCell>

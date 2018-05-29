@@ -10,33 +10,22 @@ using SunnyApp.ViewModels;
 namespace SunnyApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NewLocationPage : ContentPage
+    public partial class SearchLocationListPage : ContentPage
     {
-        private LocationListViewModel _viewModel;
+        private SearchLocationListViewModel _viewModel;
 
-        public NewLocationPage()
+        public SearchLocationListPage()
         {
             InitializeComponent();
-
-            //BindingContext = viewModel = new LocationListViewModel();
-            BindingContext = _viewModel = App.Container.Resolve<LocationListViewModel>();
-            //
-            //BindingContext = this;
+                        
+            BindingContext = _viewModel = App.Container.Resolve<SearchLocationListViewModel>();
         }
-
-        //async void Save_Clicked(object sender, EventArgs e)
-        //{
-        //    MessagingCenter.Send(this, "AddItem", _location);
-        //    await Navigation.PopModalAsync();
-        //}
-
+        
         async void OnItemSelected_AddItem(object sender, SelectedItemChangedEventArgs args)
         {
             var location = args.SelectedItem as Location;
             if (location == null)
                 return;
-            // Manually deselect item.
-            //ItemsListView.SelectedItem = null;
 
             MessagingCenter.Send(this, "AddItem", location);
             await Navigation.PopModalAsync();
