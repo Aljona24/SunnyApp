@@ -13,12 +13,13 @@ namespace SunnyApp.Infrastructure
         public static void Register(ContainerBuilder builder)
         {
             builder.RegisterType<LocationWeatherListViewModel>().AsSelf();
-            builder.RegisterType<WeatherService>().As<IWeatherService>();
-            builder.RegisterType<WeatherRepository>().As<IWeatherRepository>();
-
             builder.RegisterType<LocationListViewModel>().AsSelf();
+
             builder.RegisterType<LocationSearchService>().As<ILocationSearchService>();
+            builder.RegisterType<WeatherService>().As<IWeatherService>();
+
             builder.RegisterType<LocationRepository>().As<ILocationRepository>();
+            builder.RegisterType<WeatherRepository>().As<IWeatherRepository>();
         }
     }
 }
