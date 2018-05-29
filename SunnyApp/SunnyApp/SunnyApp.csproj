@@ -23,8 +23,8 @@
     <Compile Update="Views\LocationWeatherListPage.xaml.cs">
       <DependentUpon>LocationWeatherListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\NewLocationPage.xaml.cs">
-      <DependentUpon>NewLocationPage.xaml</DependentUpon>
+    <Compile Update="Views\SearchLocationListPage.xaml.cs">
+      <DependentUpon>SearchLocationListPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
