@@ -5,41 +5,41 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using SunnyApp.Models;
+using SunnyApp.ViewModels;
 
 namespace SunnyApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewLocationPage : ContentPage
     {
-        public Location Item { get; set; }
-        LocationListViewModel viewModel;
+        private LocationListViewModel _viewModel;
 
         public NewLocationPage()
         {
             InitializeComponent();
 
             //BindingContext = viewModel = new LocationListViewModel();
-            BindingContext = viewModel = App.Container.Resolve<LocationListViewModel>();
+            BindingContext = _viewModel = App.Container.Resolve<LocationListViewModel>();
             //
-            BindingContext = this;
+            //BindingContext = this;
         }
 
-        async void Save_Clicked(object sender, EventArgs e)
-        {
-            MessagingCenter.Send(this, "AddItem", Item);
-            await Navigation.PopModalAsync();
-        }
+        //async void Save_Clicked(object sender, EventArgs e)
+        //{
+        //    MessagingCenter.Send(this, "AddItem", _location);
+        //    await Navigation.PopModalAsync();
+        //}
 
-        void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        async void OnItemSelected_AddItem(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Location;
-            if (item == null)
+            var location = args.SelectedItem as Location;
+            if (location == null)
                 return;
-            Item = item;
             // Manually deselect item.
-            ItemsListView.SelectedItem = null;
+            //ItemsListView.SelectedItem = null;
 
-            Save_Clicked(sender, args); //todo args?
+            MessagingCenter.Send(this, "AddItem", location);
+            await Navigation.PopModalAsync();
         }
     }
 }

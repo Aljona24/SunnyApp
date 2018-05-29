@@ -6,8 +6,8 @@ using SunnyApp.Models;
 
 namespace SunnyApp.Services.Abstractions
 {
-    interface ILocationSearchService
+    public interface ILocationSearchService
     {
-        Task<List<Weather>> GetLocationListByTextAsync(string searchText);
+        Task<IList<Location>> GetLocationListByTextAsync(string searchText);
     }
 }

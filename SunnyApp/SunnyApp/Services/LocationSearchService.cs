@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using SunnyApp.Models;
+using SunnyApp.Repositories.Abstractions;
 using SunnyApp.Services.Abstractions;
 
 namespace SunnyApp.Services
 {
     class LocationSearchService : ILocationSearchService
     {
-        public Task<List<Weather>> GetLocationListByTextAsync(string searchText)
+        private readonly ILocationRepository _locationRepository;
+
+        public LocationSearchService(ILocationRepository locationRepository)
         {
-            throw new NotImplementedException();
+            _locationRepository = locationRepository;
+        }
+
+        public async Task<IList<Location>> GetLocationListByTextAsync(string searchText)
+        {
+            return await _locationRepository.GetLocationListByTextAsync(searchText);
         }
     }
 }

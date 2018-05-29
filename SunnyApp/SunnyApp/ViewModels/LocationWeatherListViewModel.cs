@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using SunnyApp.Models;
+using SunnyApp.Repositories;
+using SunnyApp.Repositories.Abstractions;
 using SunnyApp.Services.Abstractions;
 using SunnyApp.Views;
 
@@ -14,6 +16,7 @@ namespace SunnyApp.ViewModels
     {
         private readonly IWeatherService _weatherService;
 
+        public IDataStore<Location> DataStore => DependencyService.Get<IDataStore<Location>>() ?? new LocationRepository();
         public ObservableCollection<LocationWeather> LocationWeatherList { get; set; }
         public Command LoadItemsCommand { get; set; }
 

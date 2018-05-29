@@ -11,8 +11,7 @@ namespace SunnyApp.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Location> DataStore => DependencyService.Get<IDataStore<Location>>() ?? new LocationRepository();
-
+        
         bool isBusy = false;
         public bool IsBusy
         {
