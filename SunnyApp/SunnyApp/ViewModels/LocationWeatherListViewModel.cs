@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 using SunnyApp.Models;
 using SunnyApp.Repositories;
@@ -19,6 +20,18 @@ namespace SunnyApp.ViewModels
         public IDataStore<Location> DataStore => DependencyService.Get<IDataStore<Location>>() ?? new LocationRepository();
         public ObservableCollection<LocationWeather> LocationWeatherList { get; set; }
         public Command LoadItemsCommand { get; set; }
+
+        public ICommand RemoveItemCommand
+        {
+            get
+            {
+                return new Command<string>(async (key) =>
+                {
+                    await DataStore.DeleteItemAsync(key);
+                });
+            }
+        }
+
 
         public LocationWeatherListViewModel(IWeatherService weatherService)
         {
