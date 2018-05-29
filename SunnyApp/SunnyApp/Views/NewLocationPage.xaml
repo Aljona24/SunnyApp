@@ -28,6 +28,14 @@
                                            LineBreakMode="NoWrap"
                                            Style="{DynamicResource ListItemTextStyle}"
                                            FontSize="16" />
+                            <Label Text="{Binding Country.LocalizedName}"
+                                   LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListItemTextStyle}"
+                                   FontSize="16" />
+                            <Label Text="{Binding Type}"
+                                   LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListItemTextStyle}"
+                                   FontSize="16" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

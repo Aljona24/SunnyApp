@@ -6,6 +6,7 @@ namespace SunnyApp.Models
     {
         public string Key { get; set; }
         public string LocalizedName { get; set; } 
+        public string Type { get; set; } 
         public Country Country { get; set; }
     }
 }
