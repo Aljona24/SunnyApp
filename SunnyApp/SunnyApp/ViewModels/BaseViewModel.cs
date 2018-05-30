@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using SunnyApp.ApiRequestHelper.Exceptions;
 using Xamarin.Forms;
 using SunnyApp.Models;
 using SunnyApp.Repositories;
@@ -12,18 +15,39 @@ namespace SunnyApp.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {
         
-        bool isBusy = false;
+        private bool _isBusy = false;
+        private string _errorMessage;
+        private bool _isListVisible;
+        private bool _isErrorMessageVisible;
+
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set => SetProperty(ref _errorMessage, value);
+        }
+
+        public bool IsListVisible
+        {
+            get => _isListVisible;
+            set => SetProperty(ref _isListVisible, value);
+        }
+
+        public bool IsErrorMessageVisible
+        {
+            get => _isErrorMessageVisible;
+            set => SetProperty(ref _isErrorMessageVisible, value);
+        }
         public bool IsBusy
         {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
         }
 
         string title = string.Empty;
         public string Title
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            get => title;
+            set => SetProperty(ref title, value);
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,
@@ -39,6 +63,40 @@ namespace SunnyApp.ViewModels
             return true;
         }
 
+        protected async Task ExecuteCommandAsync(Func<Task> func)
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                await func();
+            }
+            catch (HttpException ex)
+            {
+                HandleHttpException(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        private void HandleHttpException(HttpException ex)
+        {
+            ErrorMessage = "Some error has been occured.";
+            IsErrorMessageVisible = true;
+            IsListVisible = false;
+
+            var serverError = ex.ServerErrorResponse;
+            if (serverError != null)
+            {
+                ErrorMessage = $"{serverError.Code} {serverError.Message}";
+            }
+
+            Debug.WriteLine(ex);
+        }
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")

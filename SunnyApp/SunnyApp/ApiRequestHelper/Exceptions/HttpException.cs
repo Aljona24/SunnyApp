@@ -6,10 +6,16 @@ namespace SunnyApp.ApiRequestHelper.Exceptions
 {
     class HttpException : System.Exception
     {
-        public HttpException(ServerErrorResponseModel serverErrorResponse)
-            : base($"{serverErrorResponse.Message} {serverErrorResponse.Code}")
+        public HttpException()
         {
-
+            ServerErrorResponse = null;
         }
+
+        public HttpException(ServerErrorResponseModel serverErrorResponse)
+        {
+            ServerErrorResponse = serverErrorResponse;
+        }
+
+        public ServerErrorResponseModel ServerErrorResponse { get; }
     }
 }

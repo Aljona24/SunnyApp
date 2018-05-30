@@ -1,7 +1,7 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SunnyApp.Views.SearchLocationListPage"
-		     Title="New Item">
+             Title="New Item">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Return" Clicked="ReturnItem_Clicked">
             <ToolbarItem.Icon>
@@ -12,19 +12,22 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <StackLayout Spacing="20" Padding="15">
-        <SearchBar x:Name="LocationSearchByText" 
-                       SearchCommand="{Binding LoadItemsCommand}" 
-                       Text="{Binding SearchedText, Mode=TwoWay}"/>
+        <SearchBar x:Name="LocationSearchByText"
+                   SearchCommand="{Binding LoadItemsCommand}"
+                   Text="{Binding SearchedText, Mode=TwoWay}" />
+
+        <Label Text="{Binding ErrorMessage}" IsVisible="{Binding IsErrorMessageVisible}"/>
 
         <ListView x:Name="ItemsListView"
-                          ItemsSource="{Binding LocationList}"
-                          VerticalOptions="FillAndExpand"
-                          HasUnevenRows="true"
-                          RefreshCommand="{Binding LoadItemsCommand}"
-                          IsPullToRefreshEnabled="true"
-                          IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                          CachingStrategy="RecycleElement"
-                          ItemSelected="OnItemSelected_AddItem">
+                  ItemsSource="{Binding LocationList}"
+                  VerticalOptions="FillAndExpand"
+                  HasUnevenRows="true"
+                  RefreshCommand="{Binding LoadItemsCommand}"
+                  IsPullToRefreshEnabled="true"
+                  IsVisible="{Binding IsListVisible}"
+                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                  CachingStrategy="RecycleElement"
+                  ItemSelected="OnItemSelected_AddItem">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -40,7 +43,7 @@
                             <Label Text="{Binding Country.LocalizedName}"
                                    LineBreakMode="NoWrap"
                                    Style="{DynamicResource ListItemDetailTextStyle}"
-                                   FontSize="16" />                            
+                                   FontSize="16" />
                             <Label Text="{Binding AdministrativeArea.LocalizedName}"
                                    LineBreakMode="NoWrap"
                                    Style="{DynamicResource ListItemDetailTextStyle}"

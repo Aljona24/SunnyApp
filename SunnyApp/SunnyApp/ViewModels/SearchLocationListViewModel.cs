@@ -8,6 +8,8 @@ using Xamarin.Forms;
 using SunnyApp.Models;
 using SunnyApp.Services.Abstractions;
 using SunnyApp.Views;
+using Windows.UI.Xaml;
+using SunnyApp.Repositories.Abstractions;
 
 namespace SunnyApp.ViewModels
 {
@@ -15,14 +17,6 @@ namespace SunnyApp.ViewModels
     {
         private readonly ILocationSearchService _locationSearchServiceService;
         private string _searchedText;
-
-        public ObservableCollection<Location> LocationList { get; set; }
-        public Command LoadItemsCommand { get; set; }
-        public string SearchedText
-        {
-            get => _searchedText;
-            set { _searchedText = value; OnPropertyChanged(); }
-        }
 
         public SearchLocationListViewModel(ILocationSearchService locationSearchService)
         {
@@ -32,14 +26,18 @@ namespace SunnyApp.ViewModels
             LoadItemsCommand = new Command(async () => await ExecuteSearchLocationListCommandAsync());
         }
 
-        async Task ExecuteSearchLocationListCommandAsync()
+        public ObservableCollection<Location> LocationList { get; set; }
+        public Command LoadItemsCommand { get; set; }
+
+        public string SearchedText
         {
-            if (IsBusy)
-                return;
+            get => _searchedText;
+            set => SetProperty(ref _searchedText, value);
+        }
 
-            IsBusy = true;
-
-            try
+        private async Task ExecuteSearchLocationListCommandAsync()
+        {
+            await ExecuteCommandAsync(async () =>
             {
                 LocationList.Clear();
                 var locationList = await _locationSearchServiceService.GetLocationListByTextAsync(SearchedText);
@@ -48,16 +46,11 @@ namespace SunnyApp.ViewModels
                     LocationList.Add(location);
                 }
 
-            }
-            catch (HttpException ex)
-            {
-
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+                ErrorMessage = string.Empty;
+                IsErrorMessageVisible = false;
+                IsListVisible = true;
+            });
         }
+
     }
 }

@@ -50,15 +50,28 @@ namespace SunnyApp.ApiRequestHelper
         protected async Task<T> GetAsyncInternal<T>(HttpClient httpClient)
         {
             httpClient.BaseAddress = new Uri(BaseUrl);
-            var response = await httpClient.GetAsync(_endpoint);
+
+            HttpResponseMessage response;
+
+            try
+            {
+                response = await httpClient.GetAsync(_endpoint);
+            }
+            catch (HttpRequestException ex)
+            {
+                //TODO: throw HttpEXception
+                throw new HttpException();
+            } 
+
+            var json = await response.Content.ReadAsStringAsync();
+
             if (!response.IsSuccessStatusCode)
             {
-                var jsonError = await response.Content.ReadAsStringAsync();
-                var serverErrorResponse = JsonConvert.DeserializeObject<ServerErrorResponseModel>(jsonError);
+                var serverErrorResponse = JsonConvert.DeserializeObject<ServerErrorResponseModel>(json);
+                //TODO: throw ApiException
                 throw new HttpException(serverErrorResponse);
             }
 
-            var json = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(json);
         }
     }

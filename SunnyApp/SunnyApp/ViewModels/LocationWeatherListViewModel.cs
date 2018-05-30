@@ -17,7 +17,7 @@ namespace SunnyApp.ViewModels
     {
         private readonly IWeatherService _weatherService;
 
-        public IDataStore<Location> DataStore => DependencyService.Get<IDataStore<Location>>() ?? new LocationRepository();
+        public IDataStore<Location> DataStore- => DependencyService.Get<IDataStore<Location>>() ?? new LocationRepository();
         public ObservableCollection<LocationWeather> LocationWeatherList { get; set; }
         public Command LoadItemsCommand { get; set; }
 
@@ -49,19 +49,11 @@ namespace SunnyApp.ViewModels
 
         async Task ExecuteRemoveItemFromDataStoreCommandAsync(string key)
         {
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
-
-            try
+            await ExecuteCommandAsync(async () =>
             {
                 await DataStore.DeleteItemAsync(key);
-
                 LocationWeatherList.Clear();
-
                 var locationList = await DataStore.GetItemListAsync(true);
-
 
                 foreach (var location in locationList)
                 {
@@ -74,25 +66,12 @@ namespace SunnyApp.ViewModels
 
                     LocationWeatherList.Add(locationWeather);
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            });
         }
 
         async Task ExecuteLoadLocationListFromDataStoreCommandAsync()
         {
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
-
-            try
+            await ExecuteCommandAsync(async () =>
             {
                 LocationWeatherList.Clear();
                 var locationList = await DataStore.GetItemListAsync(true);
@@ -107,15 +86,7 @@ namespace SunnyApp.ViewModels
 
                     LocationWeatherList.Add(locationWeather);
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            });
         }
     }
 }

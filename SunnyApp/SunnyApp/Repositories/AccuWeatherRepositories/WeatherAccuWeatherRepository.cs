@@ -6,7 +6,7 @@ using SunnyApp.Repositories.Abstractions;
 
 namespace SunnyApp.Repositories
 {
-    public class WeatherRepository : BaseAccuWeatherRepository, IWeatherRepository
+    public class WeatherAccuWeatherRepository : BaseAccuWeatherRepository, IWeatherRepository
     {
         public Task<IList<Weather>> GetWeatherByLocationAsync(string locationKey)
         {
