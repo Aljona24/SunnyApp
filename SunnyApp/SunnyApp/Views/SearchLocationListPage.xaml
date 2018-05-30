@@ -2,6 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="SunnyApp.Views.SearchLocationListPage"
 		     Title="New Item">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Return" Clicked="ReturnItem_Clicked">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP" Value="return.png" />
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <StackLayout Spacing="20" Padding="15">
         <SearchBar x:Name="LocationSearchByText" 
                        SearchCommand="{Binding LoadItemsCommand}" 

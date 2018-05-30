@@ -30,5 +30,10 @@ namespace SunnyApp.Views
             MessagingCenter.Send(this, "AddItem", location);
             await Navigation.PopModalAsync();
         }
+        async void ReturnItem_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PopModalAsync();
+        }
+        
     }
 }

@@ -21,24 +21,17 @@ namespace SunnyApp.ViewModels
         public ObservableCollection<LocationWeather> LocationWeatherList { get; set; }
         public Command LoadItemsCommand { get; set; }
 
-        public ICommand RemoveItemCommand
-        {
-            get
-            {
-                return new Command<string>(async (key) =>
-                {
-                    await DataStore.DeleteItemAsync(key);
-                });
-            }
-        }
+        public ICommand RemoveItemCommand { get; set; }
 
 
         public LocationWeatherListViewModel(IWeatherService weatherService)
         {
             _weatherService = weatherService;
-            Title = "Browse";
+            Title = "Browse Weather";
             LocationWeatherList = new ObservableCollection<LocationWeather>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadLocationListFromDataStoreCommandAsync());
+
+            RemoveItemCommand = new Command<string>(async (key) => await ExecuteRemoveItemFromDataStoreCommandAsync(key));
 
             MessagingCenter.Subscribe<SearchLocationListPage, Location>(this, "AddItem", async (obj, location) =>
             {
@@ -54,6 +47,44 @@ namespace SunnyApp.ViewModels
             });
         }
 
+        async Task ExecuteRemoveItemFromDataStoreCommandAsync(string key)
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                await DataStore.DeleteItemAsync(key);
+
+                LocationWeatherList.Clear();
+
+                var locationList = await DataStore.GetItemListAsync(true);
+
+
+                foreach (var location in locationList)
+                {
+                    var weatherList = await _weatherService.GetCurrentWeatherByLocationAsync(location.Key);
+                    var locationWeather = new LocationWeather
+                    {
+                        Location = location,
+                        CurrentWeather = weatherList.FirstOrDefault()
+                    };
+
+                    LocationWeatherList.Add(locationWeather);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
         async Task ExecuteLoadLocationListFromDataStoreCommandAsync()
         {
             if (IsBusy)
@@ -64,7 +95,7 @@ namespace SunnyApp.ViewModels
             try
             {
                 LocationWeatherList.Clear();
-                var locationList = await DataStore.GetItemsAsync(true);
+                var locationList = await DataStore.GetItemListAsync(true);
                 foreach (var location in locationList)
                 {
                     var weatherList = await _weatherService.GetCurrentWeatherByLocationAsync(location.Key);

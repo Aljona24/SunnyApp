@@ -42,7 +42,15 @@ namespace SunnyApp.Views
         {
             await Navigation.PushModalAsync(new NavigationPage(new SearchLocationListPage()));
         }
+	    void RemoveLocation_Clicked(object sender, EventArgs e)
+	    {
+	        if (ItemsListView.ItemsSource is IList<LocationWeather> selectedItem)
+	        {
+	            viewModel.RemoveItemCommand.Execute(selectedItem[0].Location.Key);
+	        }
+            ItemsListView.SelectedItem = null;
 
+	    }
         protected override void OnAppearing()
         {
             base.OnAppearing();

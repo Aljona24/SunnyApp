@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using SunnyApp.ApiRequestHelper;
 using SunnyApp.Models;
 using SunnyApp.Repositories.Abstractions;
+using Xamarin.Forms;
 
 [assembly: Xamarin.Forms.Dependency(typeof(SunnyApp.Repositories.LocationRepository))]
 namespace SunnyApp.Repositories
@@ -18,18 +19,19 @@ namespace SunnyApp.Repositories
         public LocationRepository()
         {
             LocationList = new List<Location>();
-            LocationList = App.Current.Properties.Where(x => x.Key.Contains($"{KeyPrefix}")).Select(x => (Location)x.Value).ToList();
+            LocationList = Application.Current.Properties.Where(x => x.Key.Contains($"{KeyPrefix}")).Select(x => (Location)x.Value).ToList();
         }
 
         public async Task<bool> AddItemAsync(Location location)
         {
-            App.Current.Properties.Add($"{KeyPrefix}{location.Key}", location);
+            Application.Current.Properties.Add($"{KeyPrefix}{location.Key}", location);
             return await Task.FromResult(true);
         }
 
         public async Task<bool> DeleteItemAsync(string key)
         {
-            App.Current.Properties.Remove($"{KeyPrefix}{key}");
+            Application.Current.Properties.Remove($"{KeyPrefix}{key}");
+            await GetItemListAsync();
             return await Task.FromResult(true);
         }
 
@@ -38,8 +40,9 @@ namespace SunnyApp.Repositories
             return await Task.FromResult(LocationList.FirstOrDefault(s => s.Key == key));
         }
 
-        public async Task<IEnumerable<Location>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Location>> GetItemListAsync(bool forceRefresh = false)
         {
+            LocationList = Application.Current.Properties.Where(x => x.Key.Contains($"{KeyPrefix}")).Select(x => (Location)x.Value).ToList();
             return await Task.FromResult(LocationList);
         }
 
@@ -47,7 +50,7 @@ namespace SunnyApp.Repositories
         {
             return RequestBuilder.BuildGetRequest("http://dataservice.accuweather.com")
                 .SetPathPart($"locations/v1/search")
-                .AddQueryStringParameter("apikey", "wJxBCJ6VUaN4TFVRTKzmn3RGuWx0FbWb")
+                .AddQueryStringParameter("apikey", "JN3fCDgzMkUOpEqZU0yAXKAEezj1p2Ew") //JN3fCDgzMkUOpEqZU0yAXKAEezj1p2Ew   wJxBCJ6VUaN4TFVRTKzmn3RGuWx0FbWb
                 .AddQueryStringParameter("q", $"{searchText}")
                 .GetAsync<IList<Location>>();
         }
