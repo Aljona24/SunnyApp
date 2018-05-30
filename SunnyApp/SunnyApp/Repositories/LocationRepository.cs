@@ -10,7 +10,7 @@ using Xamarin.Forms;
 [assembly: Xamarin.Forms.Dependency(typeof(SunnyApp.Repositories.LocationRepository))]
 namespace SunnyApp.Repositories
 {
-    public class LocationRepository : IDataStore<Location>, ILocationRepository
+    public class LocationRepository : BaseAccuWeatherRepository, IDataStore<Location>, ILocationRepository
     {
         private const string KeyPrefix = "location_key_";
 
@@ -48,9 +48,9 @@ namespace SunnyApp.Repositories
 
         public Task<IList<Location>> GetLocationListByTextAsync(string searchText)
         {
-            return RequestBuilder.BuildGetRequest("http://dataservice.accuweather.com")
+            return RequestBuilder.BuildGetRequest($"{BaseUrI}")
                 .SetPathPart($"locations/v1/search")
-                .AddQueryStringParameter("apikey", "JN3fCDgzMkUOpEqZU0yAXKAEezj1p2Ew") //JN3fCDgzMkUOpEqZU0yAXKAEezj1p2Ew   wJxBCJ6VUaN4TFVRTKzmn3RGuWx0FbWb
+                .AddQueryStringParameter("apikey", $"{ApiKey}") 
                 .AddQueryStringParameter("q", $"{searchText}")
                 .GetAsync<IList<Location>>();
         }

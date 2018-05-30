@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using SunnyApp.ApiRequestHelper.Exceptions;
 using Xamarin.Forms;
 using SunnyApp.Models;
 using SunnyApp.Services.Abstractions;
@@ -48,8 +49,9 @@ namespace SunnyApp.ViewModels
                 }
 
             }
-            catch (Exception ex)
+            catch (HttpException ex)
             {
+
                 Debug.WriteLine(ex);
             }
             finally

@@ -13,6 +13,13 @@
                 </OnPlatform>
             </ToolbarItem.Icon>
         </ToolbarItem>
+        <ToolbarItem Text="Refresh" Clicked="RefreshItem_Clicked">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP" Value="refresh.png" />
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
@@ -38,7 +45,7 @@
                                        Style="{DynamicResource ListItemDetailTextStyle}"
                                        FontSize="16" />
                                 <Button Text="Remove location"
-                                        HorizontalOptions="End"
+                                        HorizontalOptions="EndAndExpand"
                                         VerticalOptions="CenterAndExpand"
                                         BackgroundColor="Silver"
                                         Clicked="RemoveLocation_Clicked"/>
