@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SunnyApp", "SunnyApp\SunnyA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{EFC10CDD-8BE8-4911-B209-8784E2608DA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunnyAppUnitTest", "SunnyAppUnitTest\SunnyAppUnitTest.csproj", "{D6CEA94B-56FC-4163-B688-15901AF54A1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunnyApp.UnitTest", "SunnyAppUnitTest\SunnyApp.UnitTest.csproj", "{D6CEA94B-56FC-4163-B688-15901AF54A1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
