@@ -40,7 +40,7 @@
                                        LineBreakMode="NoWrap"
                                        Style="{DynamicResource ListItemTextStyle}"
                                        FontSize="16" />
-                                <Label Text="{Binding CurrentWeather.Temperature.Value}"
+                                <Label Text="{Binding CurrentWeather.Temperature.ValueAndUnit}"
                                        LineBreakMode="NoWrap"
                                        Style="{DynamicResource ListItemDetailTextStyle}"
                                        FontSize="16" />
