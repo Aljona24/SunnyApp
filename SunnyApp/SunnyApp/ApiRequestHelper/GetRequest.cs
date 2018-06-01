@@ -39,7 +39,7 @@ namespace SunnyApp.ApiRequestHelper
             _endpoint += $"{paramName}={paramValue}";
         }
 
-        public virtual async Task<T> GetAsync<T>()
+        public async Task<T> GetAsync<T>()
         {
             using (var httpClient = new HttpClient())
             {
@@ -47,7 +47,7 @@ namespace SunnyApp.ApiRequestHelper
             }
         }
 
-        protected async Task<T> GetAsyncInternal<T>(HttpClient httpClient)
+        public async Task<T> GetAsyncInternal<T>(HttpClient httpClient)
         {
             httpClient.BaseAddress = new Uri(BaseUrl);
 
@@ -57,19 +57,17 @@ namespace SunnyApp.ApiRequestHelper
             {
                 response = await httpClient.GetAsync(_endpoint);
             }
-            catch (HttpRequestException ex)
+            catch (HttpRequestException e)
             {
-                //TODO: throw HttpEXception
-                throw new HttpException();
+                throw new ApiException(e.Message);
             } 
-
+            
             var json = await response.Content.ReadAsStringAsync();
 
             if (!response.IsSuccessStatusCode)
             {
                 var serverErrorResponse = JsonConvert.DeserializeObject<ServerErrorResponseModel>(json);
-                //TODO: throw ApiException
-                throw new HttpException(serverErrorResponse);
+                throw new ApiException(serverErrorResponse);
             }
 
             return JsonConvert.DeserializeObject<T>(json);

@@ -4,16 +4,21 @@ using System.Text;
 
 namespace SunnyApp.ApiRequestHelper.Exceptions
 {
-    class HttpException : System.Exception
+    class ApiException : System.Exception
     {
-        public HttpException()
+        public ApiException()
         {
             ServerErrorResponse = null;
         }
 
-        public HttpException(ServerErrorResponseModel serverErrorResponse)
+        public ApiException(ServerErrorResponseModel serverErrorResponse)
         {
             ServerErrorResponse = serverErrorResponse;
+        }
+
+        public ApiException(string message)
+        {
+            ServerErrorResponse.Message = message;
         }
 
         public ServerErrorResponseModel ServerErrorResponse { get; }

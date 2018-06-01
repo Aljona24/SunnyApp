@@ -74,28 +74,28 @@ namespace SunnyApp.ViewModels
             {
                 await func();
             }
-            catch (HttpException ex)
+            catch (ApiException e)
             {
-                HandleHttpException(ex);
+                HandleException(e);
             }
             finally
             {
                 IsBusy = false;
             }
         }
-        private void HandleHttpException(HttpException ex)
+        private void HandleException(ApiException e)
         {
             ErrorMessage = "Some error has been occured.";
             IsErrorMessageVisible = true;
             IsListVisible = false;
 
-            var serverError = ex.ServerErrorResponse;
+            var serverError = e.ServerErrorResponse;
             if (serverError != null)
             {
                 ErrorMessage = $"{serverError.Code} {serverError.Message}";
             }
 
-            Debug.WriteLine(ex);
+            Debug.WriteLine(e);
         }
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
