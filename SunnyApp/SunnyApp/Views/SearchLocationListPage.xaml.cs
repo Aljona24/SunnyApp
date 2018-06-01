@@ -34,6 +34,11 @@ namespace SunnyApp.Views
         {
             await Navigation.PopModalAsync();
         }
-        
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            LocationSearchByText.Focus();
+        }
+
     }
 }

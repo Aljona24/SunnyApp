@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using SunnyApp.Models;
 using SunnyApp.ApiRequestHelper;
-using SunnyApp.Repositories.Abstractions;
+using SunnyApp.Repositories.AccuWeatherRepositories.Abstractions;
 
-namespace SunnyApp.Repositories
+namespace SunnyApp.Repositories.AccuWeatherRepository
 {
-    public class WeatherAccuWeatherRepository : BaseAccuWeatherRepository, IWeatherRepository
+    public class WeatherAccuWeatherRepository : BaseAccuWeatherRepository, IWeatherAccuWeatherRepository
     {
         public Task<IList<Weather>> GetWeatherByLocationAsync(string locationKey)
         {

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using SunnyApp.ApiRequestHelper;
 using SunnyApp.Models;
-using SunnyApp.Repositories.Abstractions;
+using SunnyApp.Repositories.AccuWeatherRepositories.Abstractions;
 using Xamarin.Forms;
 
-[assembly: Xamarin.Forms.Dependency(typeof(SunnyApp.Repositories.LocationAccuWeatherRepository))]
-namespace SunnyApp.Repositories
+[assembly: Xamarin.Forms.Dependency(typeof(SunnyApp.Repositories.AccuWeatherRepository.LocationAccuWeatherRepository))]
+namespace SunnyApp.Repositories.AccuWeatherRepository
 {
-    public class LocationAccuWeatherRepository : BaseAccuWeatherRepository, ILocationRepository
+    public class LocationAccuWeatherRepository : BaseAccuWeatherRepository, ILocationAccuWeatherRepository
     {
         public Task<IList<Location>> GetLocationListByTextAsync(string searchText)
         {

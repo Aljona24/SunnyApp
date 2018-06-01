@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using SunnyApp.Models;
 
-namespace SunnyApp.Repositories.Abstractions
+namespace SunnyApp.Repositories.AccuWeatherRepositories.Abstractions
 {
-    public interface IWeatherRepository
+    public interface IWeatherAccuWeatherRepository
     {
         Task<IList<Weather>> GetWeatherByLocationAsync(string locationKey);
     }

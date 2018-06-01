@@ -2,6 +2,8 @@
 using SunnyApp.Models;
 using SunnyApp.Repositories;
 using SunnyApp.Repositories.Abstractions;
+using SunnyApp.Repositories.AccuWeatherRepositories.Abstractions;
+using SunnyApp.Repositories.AccuWeatherRepository;
 using SunnyApp.Services;
 using SunnyApp.Services.Abstractions;
 using SunnyApp.ViewModels;
@@ -19,8 +21,8 @@ namespace SunnyApp.Infrastructure
             builder.RegisterType<LocationSearchService>().As<ILocationSearchService>();
             builder.RegisterType<WeatherService>().As<IWeatherService>();
 
-            builder.RegisterType<LocationAccuWeatherRepository>().As<ILocationRepository>();
-            builder.RegisterType<WeatherAccuWeatherRepository > ().As<IWeatherRepository>();
+            builder.RegisterType<LocationAccuWeatherRepository>().As<ILocationAccuWeatherRepository>();
+            builder.RegisterType<WeatherAccuWeatherRepository > ().As<IWeatherAccuWeatherRepository>();
             builder.RegisterType<LocationDataStoreRepository>().As<IDataStore<Location>>();
         }
     }

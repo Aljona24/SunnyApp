@@ -8,7 +8,6 @@ using Xamarin.Forms;
 using SunnyApp.Models;
 using SunnyApp.Services.Abstractions;
 using SunnyApp.Views;
-using Windows.UI.Xaml;
 using SunnyApp.Repositories.Abstractions;
 
 namespace SunnyApp.ViewModels
