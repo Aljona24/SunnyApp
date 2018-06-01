@@ -11,12 +11,12 @@ using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace SunnyApp.UnitTest
 {
-    [TestClass]
+    [TestFixture]
     public class SearchLocationListViewModelTests
     {
-        [TestMethod]
+        [Test]
         [TestCase("324505", "Kyiv", "City")]
-        public void LoadItemsCommandTest(string key, string localizedName, string type)
+        public void LoadItemsCommand_ServiceReternLocationObject_AddReternedByServiceLocationObjectToLocationList(string key, string localizedName, string type)
         {
             //Arrange
             Location location = new Location
@@ -37,7 +37,11 @@ namespace SunnyApp.UnitTest
             };
 
             var locationSearchServiceMoc = new Mock<ILocationSearchService>();
-            locationSearchServiceMoc.Setup(service => service.GetLocationListByTextAsync(It.IsAny<string>())).ReturnsAsync(new List<Location>
+
+
+            locationSearchServiceMoc
+                .Setup(service => service.GetLocationListByTextAsync(It.IsAny<string>()))
+                .ReturnsAsync(new List<Location>
             {
                 location
             });
