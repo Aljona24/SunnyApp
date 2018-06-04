@@ -22,8 +22,6 @@ namespace SunnyApp
 		public App ()
 		{
 			InitializeComponent();
-
-
 			MainPage = new MainPage();
 		}
 

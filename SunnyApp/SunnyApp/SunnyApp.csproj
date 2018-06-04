@@ -17,9 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\LocationDetailPage.xaml.cs">
-      <DependentUpon>LocationDetailPage.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\LocationWeatherListPage.xaml.cs">
       <DependentUpon>LocationWeatherListPage.xaml</DependentUpon>
     </Compile>

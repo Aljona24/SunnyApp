@@ -20,32 +20,20 @@ namespace SunnyApp.Views
 
         public LocationWeatherListPage()
         {
-            InitializeComponent();
-
-            //BindingContext = viewModel = new LocationListViewModel();
+            InitializeComponent();            
             BindingContext = viewModel = App.Container.Resolve<LocationWeatherListViewModel>();
         }
 
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
-        {
-            var item = args.SelectedItem as LocationWeather;
-            if (item == null)
-                return;
-
-            await Navigation.PushAsync(new LocationDetailPage(new LocationDetailViewModel(item.Location)));
-
-            // Manually deselect item.
-            ItemsListView.SelectedItem = null;
-        }
-
-        async void AddItem_Clicked(object sender, EventArgs e)
+        async void AddLocation_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new NavigationPage(new SearchLocationListPage()));
         }
-	    void RefreshItem_Clicked(object sender, EventArgs e)
+
+	    void RefreshLocation_Clicked(object sender, EventArgs e)
 	    {
 	        viewModel.LoadItemsCommand.Execute(null);
         }
+
         void RemoveLocation_Clicked(object sender, EventArgs e)
 	    {
 	        if (ItemsListView.ItemsSource is IList<LocationWeather> selectedItem)
@@ -53,8 +41,8 @@ namespace SunnyApp.Views
 	            viewModel.RemoveItemCommand.Execute(selectedItem[0].Location.Key);
 	        }
             ItemsListView.SelectedItem = null;
-
 	    }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();

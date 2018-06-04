@@ -15,11 +15,10 @@ namespace SunnyApp.ViewModels
     {
         private readonly ILocationSearchService _locationSearchServiceService;
         private readonly IWeatherService _weatherService;
+
         public ObservableCollection<LocationWeather> LocationWeatherList { get; set; }
         public Command LoadItemsCommand { get; set; }
-
         public ICommand RemoveItemCommand { get; set; }
-
 
         public LocationWeatherListViewModel(IWeatherService weatherService, ILocationSearchService locationSearchServiceService)
         {
@@ -39,8 +38,10 @@ namespace SunnyApp.ViewModels
                     Location = location,
                     CurrentWeather = weatherList.FirstOrDefault()
                 };
-
-                LocationWeatherList.Add(locationWeather);
+                if(!LocationWeatherList.Contains(locationWeather))
+                {
+                    LocationWeatherList.Add(locationWeather);
+                }
                 await _locationSearchServiceService.AddItemAsync(location);
             });
         }
